@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
-<xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ms='urn:schemas-microsoft-com:xslt' version="1.0">
+<xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:date="http://exslt.org/dates-and-times" version="1.0">
+	<xsl:include href="lib/reporters/html/date.format-date.function.xsl"/>
 	<xsl:output method="html"/>
 	<xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
 	<xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 	<xsl:template match="/">
 		<html>
 			<!--<xsl:call-template name="head"/>-->
-			<xsl:copy-of select="document('header.xsl')"  />
+			<xsl:copy-of select="document('lib/reporters/html/header.xsl')"  />
 			<body>
 				<div class="container" role="main">
 					<xsl:apply-templates select="test-results" />
@@ -35,14 +36,14 @@
 				</div>
 				<div class="col-md-3 col-sm-3 col-xs-6 counter">
 					<span>Start Date</span>
-					<div class="value"><xsl:value-of select="ms:format-date(./test-result[1]/summary/@startTime, 'MMM dd')"/></div>
+					<div class="value"><xsl:value-of select="date:format-date(./test-result[1]/summary/@startTime, 'MMM dd')"/></div>
 				</div>
 				<div class="col-md-3 col-sm-3 col-xs-6 counter">
 					<span>Start / End Time</span>
 					<div class="value">
-						<xsl:value-of select="ms:format-time(./test-result[1]/summary/@startTime, 'HH:mm')"/>
+						<xsl:value-of select="date:format-date(./test-result[1]/summary/@startTime, 'HH:mm')"/>
 						-
-						<xsl:value-of select="ms:format-time(./test-result[last()]/summary/@endTime, 'HH:mm')"/>
+						<xsl:value-of select="date:format-date(./test-result[last()]/summary/@endTime, 'HH:mm')"/>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-3 col-xs-6 counter">
